@@ -21,7 +21,7 @@ public class TaskController {
     @GetMapping
     public String index(Model model){
         System.out.println("Mostrando a página de tarefas");
-        var tasks = List.of("tarefa1", "tarefa2", "tarefa3");
+
 
         model.addAttribute("tasks", taskService.getAllTasks());
         return "index";

@@ -7,3 +7,4 @@ CREATE TABLE task
     status      INTEGER                                 NOT NULL,
     CONSTRAINT pk_task PRIMARY KEY (id)
 );
+

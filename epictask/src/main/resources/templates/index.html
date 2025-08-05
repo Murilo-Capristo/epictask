@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>EpicTask</title>
 </head>
 <body>
 <h1>EpicTask</h1>
+<!--<h2>Tarefas:</h2>-->
+<!--<ul>-->
+<!--    <li th:each="task: ${tasks}" th:text="${task.title}"></li>-->
+<!--</ul>-->
+
+<h2>SuperPoderes</h2>
 <ul>
-    <li th:each="task: ${tasks}" th:text="${task}"></li>
+    <li th:each="superpoder : ${superpoderes}"
+        th:text="${superpoder.nome + ' (Inutilidade: ' + superpoder.nivelInutilidade + ')'}"></li>
 </ul>
+
 </body>
 </html>
