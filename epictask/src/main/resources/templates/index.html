@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" data-theme="dracula">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>EpicTask</title>
 </head>
 <body>
-<h1>EpicTask</h1>
-<!--<h2>Tarefas:</h2>-->
-<!--<ul>-->
-<!--    <li th:each="task: ${tasks}" th:text="${task.title}"></li>-->
-<!--</ul>-->
+<h1 class ="text-primary text-2xl font-bold p-4">EpicTask</h1>
 
-<h2>SuperPoderes</h2>
-<ul>
-    <li th:each="superpoder : ${superpoderes}"
-        th:text="${superpoder.nome + ' (Inutilidade: ' + superpoder.nivelInutilidade + ')'}"></li>
-</ul>
+<a href="/task/form" class="btn btn-primary m-4">Nova Tarefa</a>
+
+<div th:if="${message}" role="alert" class="alert alert-success alert-soft m-4">
+    <span th:text="${message}"></span>
+</div>
+
+
+<main class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+    <div th:each="task: ${tasks}" class="card w-96 bg-base-300 card-md shadow-sm">
+        <div class="badge badge-accent m-4" th:text="${task.score + ' pts'}"></div>
+        <div class="card-body items-center">
+            <h2 class="card-title" th:text="${task.title}">Titulo</h2>
+            <p th:text="${task.description}"></p>
+            <div class="radial-progress text-primary mt-4" th:style="${'--value:' + task.status}" aria-valuenow="70" role="progressbar" th:text="${task.status + '%'}"></div>
+
+
+        </div>
+        <div class="justify-end card-actions m-4">
+            <button class="btn btn-primary btn-soft">Apagar</button>
+        </div>
+    </div>
+</main>
+
+<!--<h2>SuperPoderes</h2>-->
+<!--<ul>-->
+<!--    <li th:each="superpoder : ${superpoderes}"-->
+<!--        th:text="${superpoder.nome + ' (Inutilidade: ' + superpoder.nivelInutilidade + ')'}"></li>-->
+<!--</ul>-->
 
 </body>
 </html>
