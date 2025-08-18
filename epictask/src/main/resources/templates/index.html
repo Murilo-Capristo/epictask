@@ -17,7 +17,7 @@
 </div>
 
 
-<main class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+<main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
     <div th:each="task: ${tasks}" class="card w-96 bg-base-300 card-md shadow-sm">
         <div class="badge badge-accent m-4" th:text="${task.score + ' pts'}"></div>
         <div class="card-body items-center">
