@@ -10,7 +10,7 @@
 <body>
 <h1 class ="text-primary text-2xl font-bold p-4">EpicTask</h1>
 
-<a href="/task/form" class="btn btn-primary m-4">Nova Tarefa</a>
+<a href="/task/form" class="btn btn-primary m-4" th:text="#{task.new}"></a>
 
 <div th:if="${message}" role="alert" class="alert alert-success alert-soft m-4">
     <span th:text="${message}"></span>
@@ -21,14 +21,14 @@
     <div th:each="task: ${tasks}" class="card w-96 bg-base-300 card-md shadow-sm">
         <div class="badge badge-accent m-4" th:text="${task.score + ' pts'}"></div>
         <div class="card-body items-center">
-            <h2 class="card-title" th:text="${task.title}">Titulo</h2>
+            <h2 class="card-title" th:text="${task.title}"></h2>
             <p th:text="${task.description}"></p>
             <div class="radial-progress text-primary mt-4" th:style="${'--value:' + task.status}" aria-valuenow="70" role="progressbar" th:text="${task.status + '%'}"></div>
 
 
         </div>
         <div class="justify-end card-actions m-4">
-            <button class="btn btn-primary btn-soft">Apagar</button>
+            <button class="btn btn-primary btn-soft" th:text="#{delete}"></button>
         </div>
     </div>
 </main>
