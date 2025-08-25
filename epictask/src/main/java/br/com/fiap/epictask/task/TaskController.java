@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/task")
-@RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
@@ -30,9 +31,13 @@ public class TaskController {
     }
 
     @GetMapping
-    public String index(Model model){
+    public String index(Model model, @AuthenticationPrincipal OAuth2User user){
+        var avatar = user.getAttributes().get("picture") != null?
+                user.getAttributes().get("picture") :
+                user.getAttributes().get("avatar_url");
         System.out.println("Mostrando a página de tarefas");
         model.addAttribute("tasks", taskService.getAllTasks());
+        model.addAttribute("user", user);
         return "index";
 
     }

@@ -32,7 +32,7 @@
 
 
 <main class="grid place-items-center">
-    <form class="w-full max-w-md" method="POST" th:object="${task}">
+    <form class="w-full max-w-md" method="POST" th:object="${task}" th:action="${'/task/form'}">
         <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
             <legend class="fieldset-legend" th:text="#{title}"></legend>
             <input th:field="*{title}" th:errorclass="input-error" type="text" class="input="  />
