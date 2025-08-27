@@ -33,6 +33,6 @@ public class Task {
     @Min(1) @Max(100)
     private int  score;
 
-    @Min(1) @Max(100)
+    @Min(0) @Max(100)
     private int status;
 }

@@ -8,49 +8,45 @@
     <title>EpicTask</title>
 </head>
 <body>
-<h1 class ="text-primary text-2xl font-bold p-4">EpicTask</h1>
-
 
 <nav class="navbar bg-base-300 shadow-sm">
     <div class="flex-1">
-        <a class="btn btn-ghost text-xl">Epictask</a>
+        <a class="btn btn-ghost text-xl">Epic Task</a>
     </div>
     <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
             <li>
                 <details>
-                    <summary>🌍</summary>
+                    <summary>🌎</summary>
                     <ul class="bg-base-100 rounded-t-none p-2">
                         <li><a href="?lang=pt_BR">🇧🇷</a></li>
-                        <li><a href="?lang=en_US">🇬🇧</a></li>
+                        <li><a href="?lang=en_US">🏴󠁧󠁢󠁥󠁮󠁧󠁿</a></li>
                     </ul>
                 </details>
             </li>
         </ul>
-    </div>
-    <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-                <img
-                        alt="Avatar do usuário"
-                        th:src="${avatar}" />
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                    <img alt="Avatar do usuário"
+
+                         th:src="${avatar}"
+                    />
+
+                </div>
             </div>
+            <ul
+                    tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                <li>
+                    <a class="justify-between" th:text="${user.attributes.email}"></a>
+                </li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
         </div>
-        <ul
-                tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-            <li>
-                <a class="justify-between" th:text="${user.attributes.email}">
-
-                </a>
-            </li>
-
-            <li><a href="/logout">Logout</a></li>
-        </ul>
     </div>
+
 </nav>
-
-
 
 <a href="/task/form" class="btn btn-primary m-4" th:text="#{task.new}"></a>
 
@@ -58,28 +54,26 @@
     <span th:text="${message}"></span>
 </div>
 
-
-<main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
-    <div th:each="task: ${tasks}" class="card w-96 bg-base-300 card-md shadow-sm">
+<main class="flex flex-col items-center gap-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 p-4">
+    <div th:each="task : ${tasks}" class="card max-w-sm w-full bg-base-300 shadow-sm">
         <div class="badge badge-accent m-4" th:text="${task.score + ' pts'}"></div>
+
         <div class="card-body items-center">
             <h2 class="card-title" th:text="${task.title}"></h2>
             <p th:text="${task.description}"></p>
-            <div class="radial-progress text-primary mt-4" th:style="${'--value:' + task.status}" aria-valuenow="70" role="progressbar" th:text="${task.status + '%'}"></div>
-
-
+            <div class="radial-progress text-primary"
+                 th:style="${'--value:' + task.status}"
+                 aria-valuenow="70"
+                 role="progressbar"
+                 th:text="${task.status + '%'}"></div>
         </div>
+
         <div class="justify-end card-actions m-4">
             <button class="btn btn-primary btn-soft" th:text="#{delete}"></button>
         </div>
     </div>
 </main>
 
-<!--<h2>SuperPoderes</h2>-->
-<!--<ul>-->
-<!--    <li th:each="superpoder : ${superpoderes}"-->
-<!--        th:text="${superpoder.nome + ' (Inutilidade: ' + superpoder.nivelInutilidade + ')'}"></li>-->
-<!--</ul>-->
 
 </body>
 </html>
