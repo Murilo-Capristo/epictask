@@ -1,18 +1,20 @@
 package br.com.fiap.epictask.task;
 
+import br.com.fiap.epictask.helper.MessageHelper;
+import br.com.fiap.epictask.user.User;
+import br.com.fiap.epictask.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class TaskController {
 
     private final TaskService taskService;
     private final MessageSource messageSource;
+    private final MessageHelper messageHelper;
+    private final UserService userService;
 
 
 
@@ -56,9 +60,42 @@ public class TaskController {
     public String create(@Valid Task task, BindingResult result, RedirectAttributes redirect){ //TODO DTO
         if(result.hasErrors()) return "form";
         taskService.save(task);
-        var message = messageSource.getMessage("task.save.success", null, LocaleContextHolder.getLocale());
-        redirect.addFlashAttribute("message", message);
+        redirect.addFlashAttribute("message", messageHelper.getMessage("task.save.success"));
         return "redirect:/task";
     }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes redirect){
+        taskService.deleteById(id);
+
+        redirect.addFlashAttribute("message", messageHelper.getMessage("task.delete.success"));
+        return "redirect:/task";
+    }
+
+    @PutMapping("/pick/{id}")
+    public String pick(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal){
+        taskService.pickTask(id, userService.register(principal));
+        return "redirect:/task";
+    }
+
+    @PutMapping("/drop/{id}")
+    public String drop(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal){
+        taskService.dropTask(id, userService.register(principal));
+        return "redirect:/task";
+    }
+
+    @PutMapping("/inc/{id}")
+    public String increment(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal){
+        taskService.incrementTaskStatus(id, userService.register(principal));
+        return "redirect:/task";
+    }
+
+    @PutMapping("/dec/{id}")
+    public String decrement(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal){
+        taskService.decrementTaskStatus(id, userService.register(principal));
+        return "redirect:/task";
+    }
+
+
 
 }

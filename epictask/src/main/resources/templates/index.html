@@ -34,7 +34,9 @@
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li>
-                    <a class="justify-between" th:text="${user.attributes.email}"></a>
+                    <a class="justify-between"
+                       th:text="${user.attributes['email'] != null ? user.attributes['email'] : user.attributes['login']}">
+                    </a>
                 </li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
@@ -50,7 +52,12 @@
 </div>
 
 <main class="flex flex-col items-center gap-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 p-4">
-    <div th:each="task : ${tasks}" class="card max-w-sm w-full bg-base-300 shadow-sm">
+    <div th:each="task : ${tasks}" class="card max-w-sm w-full bg-base-300 shadow-sm relative">
+        <div class="avatar absolute top-4 right-4">
+            <div th:if="${task.user}" class="w-12 rounded-full">
+                <img th:src="${task.user.avatarUrl}" />
+            </div>
+        </div>
         <div class="badge badge-accent m-4" th:text="${task.score + ' pts'}"></div>
 
         <div class="card-body items-center">
@@ -64,7 +71,57 @@
         </div>
 
         <div class="justify-end card-actions m-4">
-            <button class="btn btn-primary btn-soft" th:text="#{delete}"></button>
+            <form method="post"
+                  th:action="${task.user == null ? '/task/pick/' + task.id : '/task/drop/' + task.id}">
+                <input type="hidden" name="_method" value="put">
+                <button class="btn btn-warning btn-soft svg-toggle"
+                        th:classappend="${task.user != null ? ' grabbed' : ''}"
+                        th:title="${task.user == null ? 'Pick Task' : 'Drop Task'}">
+
+                    <!-- SVG padrão -->
+                    <svg class="default" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/>
+                        <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/>
+                        <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/>
+                        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+                    </svg>
+
+                    <!-- SVG do hover -->
+                    <svg class="hover" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 11.5V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1.4"/>
+                        <path d="M14 10V8a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/>
+                        <path d="M10 9.9V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v5"/>
+                        <path d="M6 14a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/>
+                        <path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0"/>
+                    </svg>
+                </button>
+            </form>
+
+            <form method="post" th.action="${'/task/dec/' + task.id}">
+                <input type="hidden" name="_method" value="put">
+                <button class="btn btn-info btn-soft mirrored-icon" title="Decrementar Status da tarefa">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-down-icon lucide-trending-down">
+                        <path d="M16 17h6v-6"/>
+                        <path d="m22 17-8.5-8.5-5 5L2 7"/>
+                    </svg>
+                </button>
+            </form>
+
+            <form method="post" th.action="${'/task/inc/' + task.id}">
+                <input type="hidden" name="_method" value="put">
+                <button class="btn btn-info btn-soft" title="Incrementar Status da tarefa">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg>
+                </button>
+
+            </form>
+
+
+            <form method="post" th.action="${'/task/' + task.id}">
+                <input type="hidden" name="_method" value="delete">
+                <button class="btn btn-primary btn-soft" th:text="#{delete}"></button>
+
+            </form>
+
         </div>
     </div>
 </main>

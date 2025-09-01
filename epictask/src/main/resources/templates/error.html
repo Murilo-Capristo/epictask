@@ -1,42 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" data-theme="dracula">
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
   <meta charset="UTF-8">
-  <title>Ops! Algo deu errado</title>
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        text-align: center;
-        padding: 50px;
-    }
-    .container {
-        background: white;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        display: inline-block;
-    }
-    h1 {
-        color: #dc3545;
-    }
-    p {
-        color: #6c757d;
-    }
-    a {
-        text-decoration: none;
-        color: #007bff;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-  </style>
+  <title>EpicTask</title>
 </head>
-<body>
-<div class="container">
-  <h1>⚠️ Ops! Erro inesperado</h1>
-  <p>Desculpe, não conseguimos processar sua solicitação.</p>
-  <p><a href="/task">Voltar para a página inicial</a></p>
+<body class="items-center">
+
+<div class="card bg-neutral text-neutral-content w-96 mx-auto mt-8">
+  <div class="card-body items-center text-center">
+    <h2 class="card-title" th:text="${message}"></h2>
+    <p th:text="${error}"></p>
+    <div class="card-actions justify-end">
+
+      <a href="javascript:history.back()" class="btn btn-ghost">Voltar</a>
+    </div>
+  </div>
 </div>
+
 </body>
 </html>
