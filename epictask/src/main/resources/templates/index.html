@@ -20,6 +20,8 @@
                 <details>
                     <summary>🌎</summary>
                     <ul class="bg-base-100 rounded-t-none p-2">
+
+                        <li><a href="ranking.html">Ranking </a></li>
                         <li><a href="?lang=pt_BR">🇧🇷</a></li>
                         <li><a href="?lang=en_US">🏴</a></li>
                     </ul>
@@ -71,7 +73,7 @@
         </div>
 
         <div class="justify-end card-actions m-4">
-            <form method="post"
+            <form method="post" th:if="${task.user != null && task.user.email == user.attributes['email']}"
                   th:action="${task.user == null ? '/task/pick/' + task.id : '/task/drop/' + task.id}">
                 <input type="hidden" name="_method" value="put">
                 <button class="btn btn-warning btn-soft svg-toggle"

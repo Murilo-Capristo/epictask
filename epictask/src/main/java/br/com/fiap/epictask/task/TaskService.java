@@ -3,6 +3,7 @@ package br.com.fiap.epictask.task;
 
 import br.com.fiap.epictask.helper.MessageHelper;
 import br.com.fiap.epictask.user.User;
+import br.com.fiap.epictask.user.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -19,6 +20,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final MessageSource messageSource;
     private final MessageHelper messageHelper;
+    private final UserService userService;
 
     public TaskService(TaskRepository taskRepository){
         this.taskRepository = taskRepository;
@@ -30,6 +32,11 @@ public class TaskService {
 
     public Task save(Task task) {
        return taskRepository.save(task);
+    }
+
+
+    public List<Task> getUndoneTasks(){
+        return taskRepository.findByStatusLessThan(100);
     }
 
     public Task getTask(Long id){
@@ -57,6 +64,9 @@ public class TaskService {
     }
     public void dropTask(Long id, User user) {
         var task = getOrElseThrow(id);
+        if (!task.getUser().equals(user)){
+            throw new IllegalStateException(messageHelper.getMessage("task.notowner"));
+        }
         task.setUser(null);
         taskRepository.save(task);
 
@@ -70,12 +80,15 @@ public class TaskService {
         if (task.getStatus() > 100) {
             task.setStatus(100);
         }
+        if (task.getStatus() == 100) {
+            userService.addScore(user, task.getScore() );
+        }
         taskRepository.save(task);
 
     }
     public void decrementTaskStatus(Long id, User user) {
         var task = getOrElseThrow(id);
-        task.setStatus(task.setStatus() - 10);
+        task.setStatus(task.getStatus() - 10);
         if (task.getStatus() < 0) {
             task.setStatus(0);
         }

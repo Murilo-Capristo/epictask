@@ -23,10 +23,8 @@ public class UserService {
     }
 
 
-
-
-
-
-
-
+    public void addScore(User user, int score) {
+        user.setScore(user.getScore() + score);
+        userRepository.save(user);
+    }
 }

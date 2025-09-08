@@ -43,7 +43,7 @@ public class TaskController {
             avatar = avatarUrl.toString(); // GitHub
         }
 
-        model.addAttribute("tasks", taskService.getAllTasks());
+        model.addAttribute("tasks", taskService.getUndoneTasks());
         model.addAttribute("user", user);
         model.addAttribute("avatar", avatar);
         return "index";
