@@ -2,6 +2,7 @@
 FROM gradle:8.10.2-jdk17 AS build
 WORKDIR /app
 COPY . .
+
 RUN gradle bootJar --no-daemon
 
 # Etapa 2: Runtime
