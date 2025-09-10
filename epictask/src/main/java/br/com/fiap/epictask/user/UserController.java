@@ -15,9 +15,9 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/ranking")
-    public String ranking(Model model, @AuthenticationPrincipal OAuth2User user) {
-        model.addAttribute("users", userRepository.findAllByOrderByScoreDesc());
+    @GetMapping("ranking")
+    public String ranking(Model model, @AuthenticationPrincipal OAuth2User user){
+        model.addAttribute("users", userRepository.findByOrderByScoreDesc());
         model.addAttribute("user", user);
         return "ranking";
     }

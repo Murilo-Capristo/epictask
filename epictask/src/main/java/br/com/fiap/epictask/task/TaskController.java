@@ -29,30 +29,19 @@ public class TaskController {
     private final MessageHelper messageHelper;
     private final UserService userService;
 
-
-
     @GetMapping
-    public String index(Model model, @AuthenticationPrincipal OAuth2User user) {
-        Object picture = user.getAttributes().get("picture");
-        Object avatarUrl = user.getAttributes().get("avatar_url");
-
-        String avatar = null;
-        if (picture != null) {
-            avatar = picture.toString(); // Google
-        } else if (avatarUrl != null) {
-            avatar = avatarUrl.toString(); // GitHub
-        }
-
-        model.addAttribute("tasks", taskService.getUndoneTasks());
+    public String index(Model model, @AuthenticationPrincipal OAuth2User user){
+        var avatar = user.getAttributes().get("picture") != null ?
+                user.getAttributes().get("picture") :
+                user.getAttributes().get("avatar_url");
+        model.addAttribute("tasks", taskService.getUndoneTask());
         model.addAttribute("user", user);
         model.addAttribute("avatar", avatar);
         return "index";
     }
 
-
     @GetMapping("/form")
-    public String form(Model model) {
-        model.addAttribute("task", new Task());
+    public String form(Task task){
         return "form";
     }
 
@@ -64,10 +53,9 @@ public class TaskController {
         return "redirect:/task";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         taskService.deleteById(id);
-
         redirect.addFlashAttribute("message", messageHelper.getMessage("task.delete.success"));
         return "redirect:/task";
     }
@@ -95,7 +83,5 @@ public class TaskController {
         taskService.decrementTaskStatus(id, userService.register(principal));
         return "redirect:/task";
     }
-
-
 
 }
