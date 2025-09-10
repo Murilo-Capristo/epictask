@@ -12,17 +12,17 @@
 <nav class="navbar bg-base-300 shadow-sm">
     <div class="flex-1 flex items-center gap-2">
         <img src="/assets/logo.png" alt="Logo Epic Task" class="w-20 h-20" />
-        <a class="btn btn-ghost text-xl">Epic Task</a>
+        <a href="/task" class="btn btn-ghost text-xl">Epic Task</a>
     </div>
     <div class="flex-none">
-        <ul class="menu menu-horizontal px-1">
+        <ul  class="menu menu-horizontal px-1">
             <li>
+
                 <details>
                     <summary>🌎</summary>
                     <ul class="bg-base-100 rounded-t-none p-2">
-                        <li><a href="ranking.html">Ranking </a></li>
                         <li><a href="?lang=pt_BR">🇧🇷</a></li>
-                        <li><a href="?lang=en_US">🏴</a></li>
+                        <li><a href="?lang=en_US">en</a></li>
                     </ul>
                 </details>
             </li>
@@ -30,7 +30,7 @@
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
-                    <img alt="Avatar do usuário" th:src="${avatarUrl}" />
+                    <img alt="Avatar do usuário" th:src="${user.attributes['avatar_url']}" />
                 </div>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">

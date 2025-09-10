@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Entity
 @Data
-@Table(name = "epicUser")
+@Table(name = "epic_user")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,9 @@ public class User {
     private int score = 0;
 
     public User(OAuth2User principal){
-        this.email = principal.getAttributes().get("email").toString();
+        this.email = principal.getAttributes().get("login").toString();
         this.name = principal.getAttributes().get("name").toString();
-        var avatarUrl = principal.getAttributes().get("email") !=null ?
+        var avatarUrl = principal.getAttributes().get("picture") !=null ?
                 principal.getAttributes().get("picture") :
                 principal.getAttributes().get("avatar_url");
         this.avatarUrl = avatarUrl.toString();

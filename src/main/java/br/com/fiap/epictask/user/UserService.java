@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public User register(OAuth2User principal) {
-        String email = principal.getAttributes().get("email").toString();
+        String email = principal.getAttributes().get("login").toString();
         return userRepository
                 .findByEmail(email)
                 .orElseGet(
