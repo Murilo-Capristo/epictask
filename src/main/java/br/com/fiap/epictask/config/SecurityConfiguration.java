@@ -16,7 +16,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .oauth2Login( login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/task")
+                        .defaultSuccessUrl("/task", true)
                         .permitAll()
                 )
                 .logout( logout -> logout
