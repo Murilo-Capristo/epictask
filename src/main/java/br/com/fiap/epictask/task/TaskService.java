@@ -57,6 +57,9 @@ public class TaskService {
 
     public void incrementTaskStatus(Long id, User user) {
         var task = getTask(id);
+
+        if (task.getStatus() >= 100) return; // impede múltiplos incrementos
+
         task.setStatus(task.getStatus() + 10);
         if (task.getStatus() > 100) task.setStatus(100);
 
@@ -66,6 +69,7 @@ public class TaskService {
 
         taskRepository.save(task);
     }
+
 
     public void decrementTaskStatus(Long id, User user) {
         var task = getTask(id);
