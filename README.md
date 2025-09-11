@@ -1,19 +1,19 @@
 # ⚔️🛡️Epictask
 
-Epictask transforma suas **tarefas** de desenvolvimento em uma jornada **épica**. Ganhe pontos, acompanhe seu progresso e suba de nível enquanto você codifica e conquista sua lista de afazeres.
+Epictask turns your **development tasks** into an **epic** journey. Earn points, track your progress, and level up as you code and conquer your to-do list.
 
-Feito sob medida para desenvolvedores, o epictask **gamifica** suas tarefas, transformando cada item em uma missão a ser cumprida.  
-A cada linha de código ou bug resolvido, você ganha pontos e avança no seu progresso.  
-
----
-
-## ✨ Principais funcionalidades
-
-- 🎮 **Gamificação**: Cada tarefa é uma missão. Complete-as para subir de nível e desbloquear conquistas.  
-- 🏆 **Pontos e Status**: Veja seu esforço se transformar em pontos visuais. Acompanhe o status de cada missão, sabendo exatamente o que precisa ser feito.  
-- 🔥 **Motivação Visual**: Mantenha-se engajado com um sistema de recompensas que torna o trabalho mais satisfatório.  
+Tailor-made for developers, Epictask **gamifies** your tasks, turning each item into a mission to accomplish.  
+With every line of code or bug fixed, you gain points and advance your progress.  
 
 ---
 
-💡 O **epictask** é mais do que um simples gerenciador de tarefas;  
-é uma ferramenta que injeta **diversão** e **propósito** no seu trabalho, ajudando você a se manter focado e a transformar seu dia a dia em algo **verdadeiramente épico**.  
+## ✨ Key Features
+
+- 🎮 **Gamification**: Every task is a mission. Complete them to level up and unlock achievements.  
+- 🏆 **Points & Status**: Watch your effort transform into visible points. Track the status of each mission and know exactly what needs to be done.  
+- 🔥 **Visual Motivation**: Stay engaged with a reward system that makes work more satisfying.  
+
+---
+
+💡 **Epictask** is more than just a simple task manager;  
+it’s a tool that brings **fun** and **purpose** into your work, helping you stay focused and turn your everyday routine into something **truly epic**.  
